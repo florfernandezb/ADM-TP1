@@ -4,7 +4,17 @@ Vue.component('userForm-component', {
 			user_data: {
 				userName: "",
 				userBirthDate: "",
-			}, arr: []
+			},
+
+			error: [],
+			hasBeenSent: false,
+
+			arr: []
+		}
+	},
+	computed: {
+		hayErrores: function () {
+			return this.error.length;
 		}
 	},
 	template: `<div class="container">
@@ -17,7 +27,7 @@ Vue.component('userForm-component', {
 			</div>
 			<div class="col-6">
 				<label>Año de nacimiento</label>
-				<input type="number" v-model="user_data.userBirthDate" placeholder="Ingrese su año de nacimiento"/>
+				<input type="date" v-model="user_data.userBirthDate" placeholder="Ingrese su año de nacimiento"/>
 			</div>
 			
 			<button type="button" @click="save(user_data)" value="Guardar">Guardar </button>
@@ -29,22 +39,49 @@ Vue.component('userForm-component', {
 		
 			<li v-for="(item,index) in arr" v-bind:key="index">{{item}}</li>
 		</ul>
+		<div v-if="hasBeenSent === true">
+			<div v-if="hayErrores" class="classerror">
+			 <ul>
+	     		 <li v-for="x in error" >{{x}}</li>
+	    	</ul>
+	  		</div>
+	  		<div v-else class="hasBeenSent">
+	          <span>Enviado con éxito</span>
+	      </div>
+ 		</div>
 	
 	</div>`,
 	methods: {
-		save: function (user_data) {
+		mustShowError: function (fieldToEvaluate) {
+			return fieldToEvaluate == "" ? true : false
 
-			if (!localStorage.userData) {
-				arr = []
-			} else {
-				arr = JSON.parse(localStorage.getItem("userData"))
+		},
+		save: function (user_data) {
+		
+			this.hasBeenSent = true
+			this.error = []
+
+			if (this.mustShowError(user_data.userName)) {
+				this.error.push('Debe ingresar el nombre')
+			}
+			if (this.mustShowError(user_data.userBirthDate)) {
+				this.error.push('Debe ingrsar la fecha de nacimiento')
 			}
 
-			arr.push({ ...user_data, userId: arr.length + 1 })
+			if (this.error.length == 0) {
+				if (!localStorage.userData) {
+					arr = []
+				} else {
+					arr = JSON.parse(localStorage.getItem("userData"))
+				}
 
-			localStorage.setItem("userData", JSON.stringify(arr))
+				arr.push({ ...user_data, userId: arr.length + 1 })
 
-			this.$router.push('/trivia');
+				localStorage.setItem("userData", JSON.stringify(arr))
+
+				this.$router.push('/trivia');
+			}
+
 		}
 	}
 })
