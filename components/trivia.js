@@ -7,6 +7,8 @@ const QUESTIONS = [{
     { text: "Pollo", isCorrect: false }
     ],
     additionalData: "¡La carne de Kobe Wagyu cuesta alrededor de $ 200 por libra! Este tipo de comida tiene su origen en la cocina japonesa pero ahora es conocida mundialmente",
+    img: 'img/wagyu.jpg',
+    alt: "Carne de Wagyu",
     mustShow: true
 
 },
@@ -19,6 +21,8 @@ const QUESTIONS = [{
     { text: "Coca Cola", isCorrect: true },
     ],
     additionalData: "Incluso hasta ahora, el clásico refresco Coca-Cola todavía mantiene su lugar en el número uno.!",
+    img: 'img/coca.jpg',
+    alt: "Coca cola",
     mustShow: false
 
 },
@@ -31,6 +35,8 @@ const QUESTIONS = [{
     { text: "Pequeño y delicioso", isCorrect: false }
     ],
     additionalData: "¡Nada puede reemplazar estas pequeñas cosas doradas! Apuesto a que son la comida favorita de la mayoría de la gente. Esa es una de las buenas preguntas divertidas sobre la comida Trivia.",
+    img: 'img/doritos.jpg',
+    alt: "Doritos",
     mustShow: false
 },
 {
@@ -42,6 +48,8 @@ const QUESTIONS = [{
     { text: "Salsa de manzana", isCorrect: true }
     ],
     additionalData: "No es de extrañar que los astronautas estén tan en forma!",
+    img: 'img/salsa-de-manzana.jpg',
+    alt: "Salsa de manzana",
     mustShow: false
 },
 {
@@ -53,6 +61,8 @@ const QUESTIONS = [{
     { text: "agua bendita", isCorrect: false }
     ],
     additionalData: "Aunque signifique 'poca agua', no reemplace el agua con ella!",
+    img: 'img/vodka.jpg',
+    alt: "Vodka",
     mustShow: false
 },
 {
@@ -64,6 +74,8 @@ const QUESTIONS = [{
     { text: "Fresa", isCorrect: false }
     ],
     additionalData: "La enzima de la piña llamada bromelina suaviza la fibra muscular.",
+    img: 'img/piña.jpg',
+    alt: "Piña",
     mustShow: false
 },
 {
@@ -75,6 +87,8 @@ const QUESTIONS = [{
     { text: "Vegano", isCorrect: false }
     ],
     additionalData: "Estas personas están unos pasos antes que los vegetarianos. No comen carnes rojas ni cerdo!",
+    img: 'img/pollo.jpg',
+    alt: "Pollo",
     mustShow: false
 },
 {
@@ -86,6 +100,8 @@ const QUESTIONS = [{
     { text: "Británicos", isCorrect: false }
     ],
     additionalData: "En ese momento, ni siquiera sabían que iba a cambiar la industria alimentaria para siempre.!",
+    img: 'img/fritura.jpg',
+    alt: "Fritura",
     mustShow: false
 },
 {
@@ -97,17 +113,21 @@ const QUESTIONS = [{
     { text: "Latte de té verde", isCorrect: false }
     ],
     additionalData: "El Starbucks Cafe Latte se vendió por primera vez en Seattle.",
+    img: 'img/cafe.jpg',
+    alt: "Café de Starbucks",
     mustShow: false
 },
 {
     id: 9,
     q: "¿Cuál es el sabor de helado más famoso del mundo?",
-    a: [{ text: "Chocolate", isCorrect: true },
+    a: [{ text: "Chocolate", isCorrect: false },
     { text: "fresa", isCorrect: false },
-    { text: "Vainilla", isCorrect: false },
+    { text: "Vainilla", isCorrect: true },
     { text: "Mango", isCorrect: false }
     ],
     additionalData: "Todo el mundo ama el helado de vainilla favorito clásico y pasado de moda!",
+    img: 'img/vainilla.jpg',
+    alt: "Helado de vainilla",
     mustShow: false
 }
 ]
@@ -134,9 +154,12 @@ Vue.component("trivia-component", {
             <div v-if="question.mustShow"> 
 
                     <div v-if="answer.hasAnswered === true" class="result">
-                        <div v-if="answer.isCorrect === true" class="alert alert-success" role="alert">
-                            <span class="additionalData">{{question.additionalData}}</span>
+                        <div v-if="answer.isCorrect === true">
+                            <img v-bind:src="question.img" v-bind:alt="question.alt"/>
+                        <div class="alert alert-success" role="alert">
+                                <span class="additionalData">{{question.additionalData}}</span>
                         </div>
+                    </div>
                         <div v-else class="alert alert-danger" role="alert">
                         <span class="additionalData">Respuesta incorrecta, vuelva a intentar</span>
                         </div>
@@ -152,7 +175,7 @@ Vue.component("trivia-component", {
                     </select>
                     
                     <div class="navigation">
-                        <button type="button" @click="save(question)" class="evaluate" value="Guardar">Guardar </button>
+                        <button type="button" @click="save(question)" class="evaluate" value="Guardar">Validar</button>
                         <button type="button" @click="nextQuestion(question.id)" class="next">Siguiente</button>
                     </div>
             </div>
