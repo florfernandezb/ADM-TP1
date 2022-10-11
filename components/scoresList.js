@@ -29,7 +29,7 @@ Vue.component("scoresList-component", {
                 this.userData = { ...this.userData, userId: this.usersCount }
 
                 userDataExist = this.record.filter(record => record.userName === this.userData.userName && record.score === this.userData.score && record.userBirthDate === this.userData.userBirthDate)
-                console.log(userDataExist)
+
                 if (userDataExist.length == 0) {
                     this.record.push({ ...this.userData, userId: this.record.length + 1 })
                     this.usersCount += 1

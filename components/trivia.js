@@ -34,9 +34,8 @@ const Questions = [{
 
 Vue.component("trivia-component", {
     data: function () {
-        let algo = Questions
         return {
-            questionsList: algo,
+            questionsList: Questions,
             selected: "",
             answer: {
                 hasAnswered: false,
@@ -50,12 +49,6 @@ Vue.component("trivia-component", {
             return this.error.length;
         }
     },
-    destroyed: function() {
-        console.log("cuadno llega al destroy?")
-        console.log(this.questionsList, Questions)
-        this.questionsList = Questions
-    },
-    // <div v-for="(question,index) in questionsList">
     template: `<div class="panel">
         <div v-for="(question,index) in questionsList">
             <div v-if="question.mustShow"> 
@@ -113,13 +106,18 @@ Vue.component("trivia-component", {
         },
         nextQuestion: function (id) {
             if (this.questionsList.length - 1 === id) {
+                this.resetQuestions()
                 this.$router.push('/scores');
             } else {
                 this.questionsList.map(quest => { if (quest.id == id) { quest.mustShow = false } })
                 this.questionsList[id + 1].mustShow = true
                 this.answer.hasAnswered = false
-                console.log(this.questionsList, Questions)
             }
-        }
+        },
+        resetQuestions: function () {
+            for (let i = 0; i < this.questionsList.length; i++) {
+                i == 0 ? this.questionsList[i].mustShow = true : this.questionsList[i].mustShow = false
+            }
+        },
     }
 });
