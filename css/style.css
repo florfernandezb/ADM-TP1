@@ -28,7 +28,7 @@ body{
 	height: 10vh;
 	text-align: center;
 	font-size: 50px;
-	
+	display: contents;
 }
 .option-container{
 	display: flex;

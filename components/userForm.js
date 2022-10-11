@@ -75,9 +75,7 @@ Vue.component('userForm-component', {
 					arr = JSON.parse(localStorage.getItem("userData"))
 				}
 
-				arr.push({ ...user_data, userId: arr.length + 1 })
-
-				localStorage.setItem("userData", JSON.stringify(arr))
+				localStorage.setItem("userData", JSON.stringify(user_data))
 
 				this.$router.push('/trivia');
 			}
