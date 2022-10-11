@@ -87,3 +87,6 @@ body{
 .additionalData {
 	font-size: 16px;
 }
+.alert {
+	max-width: 100%;
+}

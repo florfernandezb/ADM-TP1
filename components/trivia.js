@@ -1,4 +1,4 @@
-const Questions = [{
+const QUESTIONS = [{
     id: 0,
     q: "¿Cuál es la carne más cara del mundo?",
     a: [{ text: "Cerdo", isCorrect: false },
@@ -115,7 +115,7 @@ const Questions = [{
 Vue.component("trivia-component", {
     data: function () {
         return {
-            questionsList: Questions,
+            questionsList: QUESTIONS,
             selected: "",
             answer: {
                 hasAnswered: false,
