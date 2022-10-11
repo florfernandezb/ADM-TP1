@@ -19,7 +19,7 @@ Vue.component('userForm-component', {
 	},
 	template: `<div class="container">
 
-	<div class="form row">
+	<div class="form row userForm">
 		<form v-on:submit.prevent>
 			<div class="col-6">
 				<label>Nombre</label>
@@ -36,14 +36,13 @@ Vue.component('userForm-component', {
 			
 		
 		<ul class="lista">
-		
 			<li v-for="(item,index) in arr" v-bind:key="index">{{item}}</li>
 		</ul>
 		<div v-if="hasBeenSent === true">
-			<div v-if="hayErrores" class="classerror">
-			 <ul>
-	     		 <li v-for="x in error" >{{x}}</li>
-	    	</ul>
+			<div v-if="hayErrores" class="error">
+			<div v-for="x in error"  class="alert alert-danger" role="alert">
+				{{x}}
+			</div>
 	  		</div>
 	  		<div v-else class="hasBeenSent">
 	          <span>Enviado con éxito</span>
@@ -57,7 +56,7 @@ Vue.component('userForm-component', {
 
 		},
 		save: function (user_data) {
-		
+
 			this.hasBeenSent = true
 			this.error = []
 
